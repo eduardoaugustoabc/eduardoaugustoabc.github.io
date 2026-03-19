@@ -5,27 +5,24 @@ date: 2026-03-19
 categories: [Linux Kernel, Open Source]
 tags: [qemu, libvirt, linux-kernel, virtualization, development]
 ---
-Neste tutorial, aprendi a configurar um ambiente de teste para o desenvolvimento do Linux Kernel utilizando QEMU e libvirt. O objetivo foi criar um espaço seguro e eficiente para compilar e testar kernels personalizados sem afetar o sistema principal.
+Neste tutorial, aprendi a configurar um ambiente de teste para o desenvolvimento do Linux Kernel utilizando QEMU e libvirt. O objetivo foi criar um espaço seguro e eficiente para compilar e testar kernels personalizados sem afetar o sistema principal.  
 
-### Passos principais seguidos:
+### Passos principais seguidos:  
 
----
-
-1. Preparação do diretório de testes:
----
-   - Criei o diretório `/home/lk_dev` com permissões adequadas, garantindo que o sistema de teste fosse seguro e isolado.
----
-2. Manipulação das imagens de disco:---
-   - Utilize QEMU para criar uma imagem de disco e expandi-la para incluir o `rootfs` necessário para a instalação do sistema operacional.
----
-3. Configuração e gerenciamento de VMs:---
-   - Configurei uma máquina virtual usando `libvirt` para gerenciar o ambiente de teste. Utilizei o comando `virsh` para iniciar, gerenciar e monitorar a VM.
----
-4. Configuração de SSH:---
-   - Configurei o acesso SSH entre o host e a VM, permitindo transferir arquivos e facilitar a comunicação com o sistema de teste.---
----
-5. Analisando módulos do kernel:---
-   - Dentro da VM, usei o comando `lsmod` para listar os módulos do kernel carregados e exportei a lista para análise futura.---
-
-### Resultado---
+1. Preparação do diretório de testes:  
+   - Criei o diretório `/home/lk_dev` com permissões adequadas, garantindo que o sistema de teste fosse seguro e isolado.  
+  
+2. Manipulação das imagens de disco:  
+   - Utilize QEMU para criar uma imagem de disco e expandi-la para incluir o `rootfs` necessário para a instalação do sistema operacional.    
+  
+3. Configuração e gerenciamento de VMs:  
+   - Configurei uma máquina virtual usando `libvirt` para gerenciar o ambiente de teste. Utilizei o comando `virsh` para iniciar, gerenciar e monitorar a VM.  
+  
+4. Configuração de SSH:  
+   - Configurei o acesso SSH entre o host e a VM, permitindo transferir arquivos e facilitar a comunicação com o sistema de teste.  
+  
+5. Analisando módulos do kernel:  
+   - Dentro da VM, usei o comando `lsmod` para listar os módulos do kernel carregados e exportei a lista para análise futura.  
+  
+### Resultado  
 Ao final, consegui configurar o ambiente de desenvolvimento de maneira eficiente, isolada do sistema principal, e agora posso testar modificações no kernel de maneira segura. Este é o primeiro de uma série de tutoriais sobre como trabalhar com o kernel Linux, com foco no subsistema Industrial I/O (IIO).
