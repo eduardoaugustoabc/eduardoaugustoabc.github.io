@@ -1,0 +1,61 @@
+---
+layout: post
+title: "Sending Linux Kernel Patches using git send-email and emailproxy"
+date: 2026-04-21
+categories: [Linux Kernel, Open Source]
+tags: [git-send-email, kernel, emailproxy, linux, development]
+---
+Neste tutorial, avancei no processo de contribuição para o Linux Kernel, não apenas enviando um patch, mas também enfrentando uma etapa essencial, identificar corretamente onde modificar o código e compreender o impacto dessas mudanças dentro de um sistema complexo e colaborativo.  <br>
+<br>
+### Desafio principal: localizar e modificar o código correto  <br>
+<br>
+Um dos maiores desafios foi encontrar exatamente os arquivos e pontos do código onde a alteração deveria ser feita.  <br>
+<br>
+A tarefa envolvia substituir o uso tradicional de `mutex` por uma abordagem mais moderna utilizando `guard(mutex)`, o que exige não apenas alterar chamadas isoladas, mas compreender o fluxo completo de travamento e liberação de recursos.  <br>
+<br>
+Para isso, foi necessário:  <br>
+<br>
+- Navegar pelo código-fonte do kernel, que é extenso e altamente modular.  <br>
+- Entender como o driver `mcp320x` funciona dentro do subsistema IIO.  <br>
+- Identificar todos os pontos onde o `mutex` era utilizado manualmente.  <br>
+- Garantir que a substituição por `guard(mutex)` não introduzisse inconsistências ou regressões.  <br>
+<br>
+Esse processo exige atenção rigorosa, pois pequenas mudanças em controle de concorrência podem gerar bugs difíceis de detectar.  <br>
+<br>
+### Passos principais seguidos:  <br>
+<br>
+1. Geração do patch:  <br>
+   - Utilizei `git format-patch -1` para gerar o patch a partir do commit realizado, seguindo o padrão exigido pelo Linux Kernel.  <br>
+  <br>
+2. Configuração do envio:  <br>
+   - Configurei o `git send-email` para envio de patches.  <br>
+   - Utilizei o `emailproxy` para contornar limitações de autenticação com o Gmail.  <br>
+  <br>
+3. Correção de problemas de SMTP:  <br>
+   - Ajustei o envio para utilizar `127.0.0.1:2587`, apontando para o proxy local.  <br>
+   - Identifiquei que o container estava ativo, mas o serviço não estava rodando, e corrigi isso manualmente.  <br>
+  <br>
+4. Validação do envio:  <br>
+   - Usei `--simulate` para garantir que o patch estava correto antes do envio real.  <br>
+  <br>
+5. Envio do patch:  <br>
+   - Realizei o envio efetivo para a mailing list do kernel.  <br>
+  <br>
+### A importância da colaboração no Linux Kernel  <br>
+<br>
+Contribuir com o Linux Kernel não é apenas escrever código. É participar de um processo coletivo altamente estruturado.  <br>
+<br>
+Cada patch enviado passa por revisão de mantenedores e outros desenvolvedores, que analisam não apenas se o código funciona, mas se ele segue padrões de qualidade, clareza e consistência com o restante do sistema.  <br>
+<br>
+Esse modelo reforça alguns princípios fundamentais:  <br>
+<br>
+- Clareza e responsabilidade, cada alteração precisa ser justificável.  <br>
+- Revisão por pares, garantindo qualidade e segurança do código.  <br>
+- Evolução contínua, com melhorias incrementais feitas por diversos colaboradores ao redor do mundo.  <br>
+<br>
+Além disso, mudanças como a adoção de `guard(mutex)` mostram como o kernel evolui ao longo do tempo, buscando reduzir erros comuns e tornar o código mais seguro e legível.  <br>
+<br>
+### Resultado  <br>
+Ao final, consegui não apenas enviar um patch corretamente, mas também compreender melhor o fluxo interno de desenvolvimento do kernel, desde a identificação do problema até a submissão da solução.  <br>
+<br>
+Esse processo reforça a importância de atenção aos detalhes, domínio das ferramentas e, principalmente, colaboração dentro de uma comunidade técnica global.  <br>
